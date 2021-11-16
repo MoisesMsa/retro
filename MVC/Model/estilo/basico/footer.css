@@ -1,0 +1,11 @@
+footer{
+    background-color: black;
+    text-align: center;
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 10pt;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    border-radius: 25px;
+}
