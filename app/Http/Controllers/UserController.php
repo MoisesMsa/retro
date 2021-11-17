@@ -48,4 +48,8 @@ class UserController extends Controller
     {
         $request->user()->currentAccessToken()->delete();    
     }
+
+    public function library($id){
+        return response()->json([User::find($id)->roms]);
+    }
 }

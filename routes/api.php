@@ -23,11 +23,12 @@ Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [UserController::class, 'logout']);
-
+   
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
 
     Route::resource('rom', RomController::class);
+    Route::get('/user/library/{id}', [UserController::class, 'library']);
 });
 
