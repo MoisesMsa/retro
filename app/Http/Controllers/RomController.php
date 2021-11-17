@@ -37,7 +37,8 @@ class RomController extends Controller
             'name' => $validation['name'],
             'videogame' => $validation['videogame'],
             'file' => $rom_path,
-            'thumbnail' => $thumbnail_path
+            'thumbnail' => $thumbnail_path,
+            'user_id' => auth()->user()->id
         ]);
         
         return  response()->json([$rom]);
