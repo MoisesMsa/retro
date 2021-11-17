@@ -12,17 +12,13 @@ class UserController extends Controller
     public function sign_up(Request $request)
     {
 
-        $validated = $request->validate([
+        $request->validate([
             'email' => 'required|unique:users',
             'name' => 'required',
             'password' => 'required',
         ]);
         
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-        ]);
+        $user = User::create($request->all());
 
         $user->createToken('auth_token')->plainTextToken;
         $device = $request->header('User-Agent');
