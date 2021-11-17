@@ -16,6 +16,14 @@ class CreateLibraryTable extends Migration
         Schema::create('library', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->foreignId('user_id')
+                  ->constrained()
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
+            $table->foreignId('rom_id')
+                  ->constrained()
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
         });
     }
 
