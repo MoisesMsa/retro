@@ -7,24 +7,40 @@ use App\Models\Rom;
 
 class RomController extends Controller
 {
+    public function index($id){
+
+    }
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-        $request->validate([
+        $validation = $request->validate([
             'name' => 'required',
             'videogame' => 'required',
-            'file' => 'required'
+            'release' => 'required',
+            'file' => 'required',
             'thumbnail' => 'mimes:png,jpg|max:2048',
         ]);
         
-        $rom = Rom::create($request->all());
-
-        return $rom;
+        if ($rom = $request->file('file')) 
+            $rom_path = $rom->store('public/roms');
+        
+        if ($thumbnail = $request->file('thumbnail')) 
+            $thumbnail_path = $thumbnail->store('public/thumbs');
+        
+        $rom = Rom::create([
+            'name' => $validation['name'],
+            'videogame' => $validation['videogame'],
+            'file' => $rom_path,
+            'thumbnail' => $thumbnail_path
+        ]);
+        
+        return  response()->json([$rom]);
     }
 
     /**
@@ -35,7 +51,7 @@ class RomController extends Controller
      */
     public function show($id)
     {
-        return Rom::find($id);
+        return response()->json([Rom::find($id)]);
     }
 
     /**
@@ -61,6 +77,7 @@ class RomController extends Controller
      */
     public function destroy($id)
     {
-        return Rom::destroy($id);
+        Rom::destroy($id);
+        return response()->json([]);
     }
 }
